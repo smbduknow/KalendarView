@@ -4,19 +4,19 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import me.smbduknow.recyclercalendarview.adapter.viewholder.DayHolder
+import me.smbduknow.recyclercalendarview.adapter.viewholder.WeekdayHolder
 import me.smbduknow.recyclercalendarview.model.Day
 
-class DaysAdapter : RecyclerView.Adapter<DayHolder>() {
+class WeekdaysAdapter : RecyclerView.Adapter<WeekdayHolder>() {
 
     var items: List<Day> = emptyList()
 
     override fun getItemViewType(position: Int) = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-            = DayHolder(textView(parent))
+            = WeekdayHolder(textView(parent))
 
-    override fun onBindViewHolder(holder: DayHolder, position: Int) {
+    override fun onBindViewHolder(holder: WeekdayHolder, position: Int) {
         val day = items[position]
         holder.bind(day)
     }
@@ -32,6 +32,7 @@ class DaysAdapter : RecyclerView.Adapter<DayHolder>() {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         )
+
     }
 
 }
