@@ -6,10 +6,29 @@ import android.support.v4.content.res.ResourcesCompat
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.TextView
-import me.smbduknow.recyclercalendarview.R
 import me.smbduknow.recyclercalendarview.model.Day
 
 class DayView : TextView {
+
+    var colorTextDay = ResourcesCompat.getColor(resources, android.R.color.black, null)
+    var colorTextOtherDay = ResourcesCompat.getColor(resources, android.R.color.darker_gray, null)
+    var colorTextWeekend = ResourcesCompat.getColor(resources, android.R.color.holo_blue_dark, null)
+    var colorTextAccent = ResourcesCompat.getColor(resources, android.R.color.white, null)
+    var colorAccent = ResourcesCompat.getColor(resources, android.R.color.holo_blue_light, null)
+
+    private val colorTransparent = ResourcesCompat.getColor(resources, android.R.color.transparent, null)
+
+    var showOtherDates = false
+        set(value) {
+            field = value
+            reinit()
+        }
+
+    var day: Day? = null
+        set(value) {
+            field = value
+            reinit()
+        }
 
     constructor(context: Context)
             : super(context) { init(null) }
@@ -22,25 +41,23 @@ class DayView : TextView {
 
     private fun init(attrs: AttributeSet?) {
         gravity = Gravity.CENTER
-        val padding = resources.getDimensionPixelSize(R.dimen.space_large)
-//        setPadding(padding, padding, padding, padding)
     }
 
-    var showOtherDates = false
 
-    var day: Day? = null
-        set(value) {
-            field = value
-            if(value == null) return
-            val text = if(value.isBelongToMonth || showOtherDates) value.dayNumber.toString() else null
-            val color = if(value.isBelongToMonth)
-                ResourcesCompat.getColor(resources, android.R.color.black, null)
-            else
-                ResourcesCompat.getColor(resources, android.R.color.darker_gray, null)
+    private fun reinit() {
+        day?.let { day ->
+            val text = if (day.isBelongToMonth || showOtherDates) day.dayNumber.toString() else null
+            val textColor = when {
+                !day.isBelongToMonth -> colorTextOtherDay
+                day.isCurrent -> colorTextAccent
+                day.isWeekend -> colorTextWeekend
+                else -> colorTextDay
+            }
+            val bgColor = if (day.isCurrent && day.isBelongToMonth) colorAccent else colorTransparent
 
             this.text = text
-            this.setTextColor(color)
-            if(value.isCurrent && value.isBelongToMonth) this.setBackgroundResource(android.R.color.holo_blue_light)
+            this.setTextColor(textColor)
+            this.setBackgroundColor(bgColor)
         }
-
+    }
 }

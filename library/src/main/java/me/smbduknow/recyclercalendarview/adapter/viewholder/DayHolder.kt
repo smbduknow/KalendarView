@@ -7,7 +7,7 @@ import me.smbduknow.recyclercalendarview.view.DayView
 
 class DayHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    val showOtherDates = false // TODO in settings
+    val showOtherDates = true // TODO in settings
 
     // TextView dayView
 
