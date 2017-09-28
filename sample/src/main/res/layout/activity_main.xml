@@ -11,6 +11,7 @@
 
 
     <me.smbduknow.recyclercalendarview.KalendarView
+        android:id="@+id/kalendar_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

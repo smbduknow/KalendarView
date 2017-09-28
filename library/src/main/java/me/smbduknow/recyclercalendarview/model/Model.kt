@@ -1,10 +1,11 @@
 package me.smbduknow.recyclercalendarview.model
 
+import me.smbduknow.recyclercalendarview.util.calendar
 import java.util.*
 
 
 data class Day(
-        val calendar: Calendar,
+        val date: Date,
         val isBelongToMonth: Boolean = false,
         val isWeekend: Boolean = false,
         val isCurrent: Boolean = false,
@@ -13,7 +14,7 @@ data class Day(
 ) {
 
     val dayNumber: Int
-        get() = calendar.get(Calendar.DAY_OF_MONTH)
+        get() = calendar(date).get(Calendar.DAY_OF_MONTH)
 
 }
 
@@ -24,7 +25,7 @@ data class Month(
 ) {
 
     val monthNumber: Int
-        get() = firstDay.calendar.get(Calendar.MONTH)
+        get() = calendar(firstDay.date).get(Calendar.MONTH)
 
     /**
      * Returns days that belong to current month

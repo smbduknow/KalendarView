@@ -2,6 +2,7 @@ package me.smbduknow.recyclercalendarview.util
 
 import me.smbduknow.recyclercalendarview.model.Day
 import me.smbduknow.recyclercalendarview.model.Month
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -52,6 +53,16 @@ fun Date.getEndOfWeek(firstDayOfWeek: Int) = calendar(this).apply {
 }.time
 
 
+fun Date.format(pattern: String) = SimpleDateFormat(pattern, Locale.getDefault()).format(this)
+
+
+fun Calendar.isSameMonth(with: Calendar): Boolean {
+    val leftMonth = this.get(Calendar.MONTH)
+    val leftYear = this.get(Calendar.YEAR)
+    val rightMonth = with.get(Calendar.MONTH)
+    val rightYear = with.get(Calendar.YEAR)
+    return leftMonth == rightMonth && leftYear == rightYear
+}
 
 
 fun buildMonth(date: Date): Month {
@@ -65,7 +76,7 @@ fun buildMonth(date: Date): Month {
     var d = firstDisplayedDate
     while(d <= lastDisplayedDate) {
         days.add(Day(
-                calendar = calendar(d),
+                date = d,
                 isBelongToMonth = d.isInRange(firstMonthDate, lastMonthDate),
                 isWeekend = d.isWeekend(Calendar.SATURDAY, Calendar.SUNDAY),
                 isCurrent = d.isToday(),
@@ -75,7 +86,7 @@ fun buildMonth(date: Date): Month {
         d++
     }
 
-    return Month(days, days.first()) // TODO first
+    return Month(days, days.first { it.isBelongToMonth })
 }
 
 

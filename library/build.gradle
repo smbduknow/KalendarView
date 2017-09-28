@@ -20,29 +20,14 @@ dependencies {
 
     final supportLibraryVersion = "25.4.0"
 
-    final ankoVersion = "0.10.1"
-
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
 //    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
     compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
 
-    // Anko Layouts
-    compile "org.jetbrains.anko:anko-sdk25:$ankoVersion"
-    compile "org.jetbrains.anko:anko-appcompat-v7:$ankoVersion"
-
-    // Coroutine listeners for Anko Layouts
-    compile "org.jetbrains.anko:anko-sdk25-coroutines:$ankoVersion"
-    compile "org.jetbrains.anko:anko-appcompat-v7-coroutines:$ankoVersion"
-
     testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-}
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
 }
 

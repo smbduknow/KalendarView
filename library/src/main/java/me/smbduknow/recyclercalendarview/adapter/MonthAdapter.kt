@@ -2,6 +2,7 @@ package me.smbduknow.recyclercalendarview.adapter
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.ViewGroup
 import me.smbduknow.recyclercalendarview.adapter.viewholder.MonthHolder
 import me.smbduknow.recyclercalendarview.model.Month
@@ -24,18 +25,20 @@ class MonthAdapter : RecyclerView.Adapter<MonthHolder>() {
 
     override fun getItemCount() = items.size
 
-    override fun getItemId(position: Int)= items[position].firstDay.calendar.timeInMillis
+    override fun getItemId(position: Int)= items[position].firstDay.date.time
 
 
 
     private fun monthView(parent: ViewGroup) = RecyclerView(parent.context).apply {
         setHasFixedSize(true)
         isNestedScrollingEnabled = false
+        isHorizontalScrollBarEnabled = false
+        isVerticalFadingEdgeEnabled = false
+        overScrollMode = View.OVER_SCROLL_NEVER
         layoutManager = GridLayoutManager(context, WEEK_DAYS_COUNT).apply {
             isAutoMeasureEnabled = true
         }
         adapter = DaysAdapter()
-        setPadding(10, 10, 10, 10)
 
         layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,

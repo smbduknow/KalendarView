@@ -1,11 +1,10 @@
 package me.smbduknow.recyclercalendarview.adapter
 
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import me.smbduknow.recyclercalendarview.adapter.viewholder.DayHolder
 import me.smbduknow.recyclercalendarview.model.Day
+import me.smbduknow.recyclercalendarview.view.DayView
 
 class DaysAdapter : RecyclerView.Adapter<DayHolder>() {
 
@@ -14,7 +13,7 @@ class DaysAdapter : RecyclerView.Adapter<DayHolder>() {
     override fun getItemViewType(position: Int) = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-            = DayHolder(textView(parent))
+            = DayHolder(dayView(parent))
 
     override fun onBindViewHolder(holder: DayHolder, position: Int) {
         val day = items[position]
@@ -23,11 +22,9 @@ class DaysAdapter : RecyclerView.Adapter<DayHolder>() {
 
     override fun getItemCount() = items.size
 
-    override fun getItemId(position: Int): Long = items[position].calendar.timeInMillis
+    override fun getItemId(position: Int): Long = items[position].date.time
 
-    private fun textView(parent: ViewGroup) = TextView(parent.context).apply {
-        text = "xx"
-        textAlignment = View.TEXT_ALIGNMENT_CENTER
+    private fun dayView(parent: ViewGroup) = DayView(parent.context).apply {
         layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT

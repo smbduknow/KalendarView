@@ -1,7 +1,7 @@
 package me.smbduknow.recyclercalendarview.adapter
 
 import android.support.v7.widget.RecyclerView
-import android.view.View
+import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.TextView
 import me.smbduknow.recyclercalendarview.adapter.viewholder.WeekdayHolder
@@ -23,11 +23,10 @@ class WeekdaysAdapter : RecyclerView.Adapter<WeekdayHolder>() {
 
     override fun getItemCount() = items.size
 
-    override fun getItemId(position: Int): Long = items[position].calendar.timeInMillis
+    override fun getItemId(position: Int): Long = items[position].date.time
 
     private fun textView(parent: ViewGroup) = TextView(parent.context).apply {
-        text = "xx"
-        textAlignment = View.TEXT_ALIGNMENT_CENTER
+        gravity = Gravity.CENTER
         layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
